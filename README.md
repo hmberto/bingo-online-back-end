@@ -11,6 +11,17 @@ Before each game, the player chooses how many cards he wants to use (maximum 4) 
 ### Variables:
 In **./properties/data.properties** correctly fill your SQL database connection data.
 
+### Database:
+~~~
+CREATE DATABASE bingo_sec;
+
+CREATE TABLE bingo(
+id int(6) NOT NULL,
+jogo varchar(100) NOT NULL,
+PRIMARY KEY (id)
+);
+~~~
+
 ### Run:
 ~~~
 mvn package jetty:run
