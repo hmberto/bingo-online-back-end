@@ -36,9 +36,6 @@ public class Generate {
 
 		this.id = id;
 		this.sequence = numberList;
-    
-		Database conn = new Database();
-		conn.DBConnect(id, numberList);
 		
 		LOG.exiting(NAME, "Generate");
   }

@@ -10,7 +10,7 @@ public class GenerateNumberList {
 	public static String NAME = GenerateNumberList.class.getSimpleName();
 	private static Logger LOG = Logger.getLogger(GenerateNumberList.class.getName());
 	
-	public Set<Integer> getNumberList(int size) {
+	public Set<Integer> getNumberList(int size, int id) {
 		LOG.entering(NAME, "getNumberList");
 		
 		Set<Integer> numberList;
@@ -25,6 +25,9 @@ public class GenerateNumberList {
 		}
 		
 		LOG.log(Level.INFO, "Generated table: " + numberList);
+		
+		Database conn = new Database();
+		conn.DBConnect(id, numberList);
 		
 		LOG.exiting(NAME, "getNumberList");
 		return numberList;
