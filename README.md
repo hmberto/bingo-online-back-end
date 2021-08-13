@@ -6,7 +6,20 @@ Backend to generate and record the cards for Bingo Online.
 Before each game, the player chooses how many cards he wants to use (maximum 4) simultaneously. When the game starts the numbers are drawn one by one and the player must check if they are on his card.
 
 ## Resources
+~~~
+http://localhost:8186/bingoSec/rest
+~~~
 * **GET**: This request is capable of generating an ID and a set of 24 random numbers between 1 and 75 to load the game. These numbers are stored in a database along with the game ID.
+
+### Response:
+~~~
+200 OK
+
+{
+  "id": 464511,
+  "sequence": [32,64,33,34,66,38,7,40,72,8,41,73,43,49,19,21,53,56,58,27,59,61,62,30]
+}
+~~~
 
 ### Variables:
 In **./properties/data.properties** correctly fill your SQL database connection data.
