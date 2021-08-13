@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,6 +74,37 @@ public class Database {
         
         LOG.exiting(NAME, "disconnect");
     }
+	
+	public String DBGet(int id) {
+		LOG.entering(NAME, "DBGet");
+		
+		String sql = EnvVariables.getEnvVariable("DATABASE_SELECT");
+		String game = "";
+		
+		try {
+			PreparedStatement statement = Database.connect().prepareStatement(sql);
+			statement.setString(1, id + "%");
+						
+			ResultSet f = statement.executeQuery();
+			
+			while(f.next()) {
+				game = f.getString(2);
+				
+				LOG.log(Level.INFO, "Data geted from the database. ID: " + id + " - GAME: " + game);
+			}
+			
+			statement.close();			
+		}
+		catch (SQLException e) {
+			LOG.log(Level.SEVERE, "Data not geted from the database", e);
+		}
+		finally {
+			Database.disconnect();
+		}
+		
+		LOG.exiting(NAME, "DBGet");
+		return game;
+	}
     
     public void DBConnect(int id, Set<Integer> numberList) {
     	LOG.entering(NAME, "DBConnect");
@@ -84,14 +116,14 @@ public class Database {
       
     	while (numbersIterator.hasNext()){      
     		if(numbers.equals("") || numbers == "") {
-    			numbers = numbers + "[ " + numbersIterator.next();
+    			numbers = numbers + "[" + numbersIterator.next();
     		}
     		else {
-    			numbers = numbers + ", " + numbersIterator.next();
+    			numbers = numbers + "," + numbersIterator.next();
     		}
     	}
 
-    	numbers = numbers + " ]";
+    	numbers = numbers + "]";
   	      
     	try {
     		PreparedStatement statement = Database.connect().prepareStatement(sql);
